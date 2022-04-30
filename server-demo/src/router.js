@@ -32,6 +32,14 @@ function match(req, res) {
       res.write(page);
       res.end();
     };
+
+    res.redirect = (location) => {
+      res.writeHead(301, {
+        Location: location,
+      });
+      res.end();
+    };
+
     handler(req, res);
   } else {
     defaultController(req, res);
