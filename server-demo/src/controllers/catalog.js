@@ -1,4 +1,9 @@
-const { getProducts, createProduct } = require("../data");
+const {
+  getProducts,
+  createProduct,
+  getProductById,
+  editProduct,
+} = require("../data");
 const { loadFragment, render } = require("../view");
 
 module.exports = {
@@ -50,11 +55,47 @@ module.exports = {
     });
   },
 
-  editGet(req, res) {
+  async editGet(req, res) {
+    const productId = req.url.searchParams.get("id");
+    const product = await getProductById(productId);
 
-  }
+    loadFragment("edit", (fragment) => {
+      const result = fragment
+        .replace("{{{_id}}}", productId)
+        .replace("{{{name}}}", product.name)
+        .replace("{{{price}}}", product.price);
 
-  editPost(req, res) {
-    res.redirect('/catalog')
-  }
+      res.html(render(result));
+    });
+  },
+
+  async editPost(req, res) {
+    const productId = req.url.searchParams.get("id");
+
+    let body = "";
+
+    req.on("data", (chunk) => {
+      body += chunk.toString();
+    });
+
+    req.on("end", async () => {
+      const formData = body
+        .split("&")
+        .map((prop) => prop.split("="))
+        .reduce(
+          (r, [k, v]) =>
+            Object.assign(r, {
+              [k]: decodeURIComponent(v.split("+").join(" ")),
+            }),
+          {}
+        );
+
+      await editProduct(productId, {
+        name: formData.name,
+        price: Number(formData.price),
+      });
+
+      res.redirect("/catalog");
+    });
+  },
 };

@@ -15,6 +15,11 @@ async function getProducts() {
   );
 }
 
+async function getProductById(id) {
+  const data = await readFile();
+  return data[id];
+}
+
 async function createProduct(product) {
   const data = await readFile();
 
@@ -22,6 +27,12 @@ async function createProduct(product) {
 
   data[_id] = product;
 
+  await fs.writeFile("./data/products.json", JSON.stringify(data, null, 2));
+}
+
+async function editProduct(id, product) {
+  const data = await readFile();
+  data[id] = product;
   await fs.writeFile("./data/products.json", JSON.stringify(data, null, 2));
 }
 
@@ -34,4 +45,6 @@ function nextId() {
 module.exports = {
   getProducts,
   createProduct,
+  getProductById,
+  editProduct,
 };
