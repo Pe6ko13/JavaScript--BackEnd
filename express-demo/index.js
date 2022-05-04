@@ -11,8 +11,8 @@ app.set("view engine", ".hbs");
 let visitors = 0;
 
 const products = [
-  { name: "po", price: 2 },
-  { name: "op", price: 5 },
+  { name: "oats", price: 2 },
+  { name: "wheat", price: 5 },
   { name: "corn", price: 7, promoted: true },
 ];
 
