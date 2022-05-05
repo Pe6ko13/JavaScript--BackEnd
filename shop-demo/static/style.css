@@ -1,0 +1,34 @@
+body {
+  width: 1000px;
+  margin: 50px auto;
+  background-color: antiquewhite;
+}
+
+h1 {
+  text-align: center;
+}
+
+nav li {
+  list-style: none;
+  display: inline-block;
+  margin-right: 16px;
+}
+
+a,
+.back {
+  text-decoration: none;
+  color: red;
+  margin-left: 12px;
+}
+
+.productList {
+}
+
+.italic {
+  font-style: italic;
+  color: tomato;
+}
+
+.prom {
+  color: blue;
+}

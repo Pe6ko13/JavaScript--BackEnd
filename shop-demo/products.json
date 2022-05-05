@@ -1,0 +1,41 @@
+{
+  "asf34f": {
+    "name": "Widget",
+    "price": 12
+  },
+  "as344f": {
+    "name": "Pop",
+    "price": 2
+  },
+  "vfv335g": {
+    "name": "Bob",
+    "price": 5
+  },
+  "34t3g": {
+    "name": "Bla",
+    "price": 8
+  },
+  "tbre656": {
+    "name": "wap",
+    "price": 12
+  },
+  "20fe1cb0": {
+    "name": "Pork",
+    "price": 170
+  },
+  "4f63a213": {
+    "name": "ewf",
+    "price": "23",
+    "promoted": false
+  },
+  "4f2d22da": {
+    "name": "Pork2",
+    "price": "12",
+    "promoted": true
+  },
+  "ec9b02f4": {
+    "name": "ipo",
+    "price": "123",
+    "promoted": true
+  }
+}

@@ -1,0 +1,9 @@
+{{#if promoted}}
+  <li class="prom productList">{{name}}
+    -
+    {{price}}<a href="/catalog/edit/{{_id}}">[ Edit ]</a></li>
+{{else}}
+  <li class="productList">{{name}}
+    -
+    {{price}}<a href="/catalog/edit/{{_id}}">[ Edit ]</a></li>
+{{/if}}
