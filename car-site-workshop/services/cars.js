@@ -68,6 +68,17 @@ async function createCar(car) {
   await write(cars);
 }
 
+async function deleteById(id) {
+  const data = await read();
+
+  if (data.hasOwnProperty(id)) {
+    delete data[id];
+    await write(data);
+  } else {
+    throw new Error("No such car");
+  }
+}
+
 function nextId() {
   return "xxxxxxxx-xxxx".replace(/x/g, () =>
     ((Math.random() * 16) | 0).toString(16)
@@ -79,6 +90,7 @@ module.exports = () => (req, res, next) => {
     getAll,
     getById,
     createCar,
+    deleteById,
   };
   next();
 };

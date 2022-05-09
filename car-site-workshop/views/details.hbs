@@ -1,3 +1,4 @@
+{{!-- {{#with car}} --}}
 <h1>{{car.name}}</h1>
 <img class="cube" src="{{car.imageUrl}}" />
 <div class="details">
@@ -5,4 +6,6 @@
     {{car.description}}</p>
   <p><span>Price:</span> {{car.price}}</p>
   <a class="btn" href="/">Back</a>
+  <a class="btn" href="/delete/{{car.id}}">Delete</a>
 </div>
+{{!-- {{/with}} --}}
