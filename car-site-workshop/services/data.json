@@ -10,5 +10,17 @@
     "description": "2015. 125000 km. Petrol. Automatic. Full service",
     "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAYUEK12fLVOBg2rftdcNjHtlbD-5kvWraPg&usqp=CAU%22",
     "price": 16000
+  },
+  "e7c46805-39c0": {
+    "name": "Kia Ceed",
+    "description": "2018 year. 130000 km. Diesel. Manual. New Import",
+    "imageUrl": "https://press.kia.com/content/dam/kiapress/EU/Pressreleases/2018/kia_pressrelease_2018_The-new-Kia-Ceed-GT/kia_pressrelease_2018_fullbleed-header_1920x748_ceedGT.jpg",
+    "price": 20000
+  },
+  "d916df30-1a95": {
+    "name": "Honda Civic",
+    "description": "2016 year . 110000 km. Manual. Petrol. Service history",
+    "imageUrl": "https://www.iihs.org/api/ratings/model-year-images/2519/636/",
+    "price": 16500
   }
 }

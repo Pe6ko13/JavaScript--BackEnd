@@ -18,10 +18,12 @@
   />
   <input type="submit" value="search" />
 </form>
-<div>
+<div id="cars">
   {{#each cars}}
   {{> carPreview}}
   {{else}}
   <p>No cars! Add your car <a href="/create">HERE</a></p>
   {{/each}}
 </div>
+
+<script src="/static/js/app.js"></script>
