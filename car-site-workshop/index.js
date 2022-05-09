@@ -1,5 +1,8 @@
 const express = require("express");
 const hbs = require("express-handlebars");
+
+const carService = require("./services/cars");
+
 const { about } = require("./controllers/about");
 const { create } = require("./controllers/create");
 const { details } = require("./controllers/details");
@@ -20,6 +23,7 @@ app.set("view engine", "hbs");
 
 app.use(express.urlencoded({ extanded: true }));
 app.use("/static", express.static("static"));
+app.use(carService());
 
 app.get("/", home);
 app.get("/about", about);
