@@ -68,6 +68,17 @@ async function createCar(car) {
   await write(cars);
 }
 
+async function editById(id, car) {
+  const data = await read();
+
+  if (data.hasOwnProperty(id)) {
+    data[id] = car;
+    await write(data);
+  } else {
+    throw new Error("No such car");
+  }
+}
+
 async function deleteById(id) {
   const data = await read();
 
@@ -90,6 +101,7 @@ module.exports = () => (req, res, next) => {
     getAll,
     getById,
     createCar,
+    editById,
     deleteById,
   };
   next();
