@@ -1,14 +1,14 @@
-const { log } = require("console");
-const fs = require("fs/promises");
+const { log } = require('console');
+const fs = require('fs/promises');
 
-const filePath = "./services/data.json";
+const filePath = './services/data.json';
 
 async function read() {
   try {
     const file = await fs.readFile(filePath);
     return JSON.parse(file);
   } catch (err) {
-    console.error("Database read error");
+    console.error('Database read error');
     process.exit(1);
   }
 }
@@ -17,7 +17,7 @@ async function write(data) {
   try {
     await fs.writeFile(filePath, JSON.stringify(data, null, 2));
   } catch (err) {
-    console.error("Database write error");
+    console.error('Database write error');
     console.log(err);
     process.exit(1);
   }
@@ -75,7 +75,7 @@ async function editById(id, car) {
     data[id] = car;
     await write(data);
   } else {
-    throw new Error("No such car");
+    throw new Error('No such car');
   }
 }
 
@@ -86,12 +86,12 @@ async function deleteById(id) {
     delete data[id];
     await write(data);
   } else {
-    throw new Error("No such car");
+    throw new Error('No such car');
   }
 }
 
 function nextId() {
-  return "xxxxxxxx-xxxx".replace(/x/g, () =>
+  return 'xxxxxxxx-xxxx'.replace(/x/g, () =>
     ((Math.random() * 16) | 0).toString(16)
   );
 }

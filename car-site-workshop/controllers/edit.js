@@ -4,9 +4,9 @@ module.exports = {
     const car = await req.storage.getById(id);
 
     if (car) {
-      res.render("edit", { title: `Edit listing - ${car.name}`, car });
+      res.render('edit', { title: `Edit listing - ${car.name}`, car });
     } else {
-      res.redirect("/404");
+      res.redirect('/404');
     }
   },
 
@@ -21,9 +21,9 @@ module.exports = {
 
     try {
       await req.storage.editById(id, car);
-      res.redirect("/");
+      res.redirect('/');
     } catch (err) {
-      res.redirect("/404");
+      res.redirect('/404');
     }
   },
 };
