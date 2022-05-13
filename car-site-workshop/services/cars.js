@@ -34,8 +34,26 @@ function carViewModel(car) {
 }
 
 async function getAll(query) {
-    const cars = await Car.find({}); //.lean()
+    const options = {};
+
+    if (query.search) {
+        options.name = new RegExp(query.search, 'i');
+    }
+    if (query.from) {
+        options.price = {
+            $gte: Number(query.from),
+        };
+    }
+    if (query.to) {
+        if (!options.price) {
+            options.price = {};
+        }
+        options.price.$lte = Number(query.to);
+    }
+
+    const cars = await Car.find(options); //.lean()
     return cars.map(carViewModel);
+
     // const data = await read();
     // let cars = Object.entries(data).map(([id, v]) =>
     //     Object.assign({}, { id }, v)
@@ -86,32 +104,34 @@ async function createCar(car) {
 }
 
 async function editById(id, car) {
-    const data = await read();
+    await Car.findByIdAndUpdate(id, car);
 
-    if (data.hasOwnProperty(id)) {
-        data[id] = car;
-        await write(data);
-    } else {
-        throw new Error('No such car');
-    }
+    // const data = await read();
+    // if (data.hasOwnProperty(id)) {
+    //     data[id] = car;
+    //     await write(data);
+    // } else {
+    //     throw new Error('No such car');
+    // }
 }
 
 async function deleteById(id) {
-    const data = await read();
+    await Car.findByIdAndDelete(id);
 
-    if (data.hasOwnProperty(id)) {
-        delete data[id];
-        await write(data);
-    } else {
-        throw new Error('No such car');
-    }
+    // const data = await read();
+    // if (data.hasOwnProperty(id)) {
+    //     delete data[id];
+    //     await write(data);
+    // } else {
+    //     throw new Error('No such car');
+    // }
 }
 
-function nextId() {
-    return 'xxxxxxxx-xxxx'.replace(/x/g, () =>
-        ((Math.random() * 16) | 0).toString(16)
-    );
-}
+// function nextId() {
+//     return 'xxxxxxxx-xxxx'.replace(/x/g, () =>
+//         ((Math.random() * 16) | 0).toString(16)
+//     );
+// }
 
 module.exports = () => (req, res, next) => {
     req.storage = {
