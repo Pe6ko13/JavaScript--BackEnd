@@ -1,6 +1,8 @@
 const express = require('express');
 const hbs = require('express-handlebars');
 
+const initDb = require('./models');
+
 const carService = require('./services/cars');
 
 const { about } = require('./controllers/about');
@@ -12,32 +14,39 @@ const { details } = require('./controllers/details');
 const { home } = require('./controllers/home');
 const { notFound } = require('./controllers/notFound');
 
-const app = express();
+start();
 
-// const handlebars = hbs.create({extname: '.hbs'})
+async function start() {
+    await initDb();
 
-app.engine(
-  'hbs',
-  hbs.create({
-    extname: '.hbs',
-  }).engine
-);
-app.set('view engine', '.hbs');
+    const app = express();
 
-app.use(express.urlencoded({ extanded: true }));
-app.use('/static', express.static('static'));
-app.use(carService());
+    // const handlebars = hbs.create({extname: '.hbs'})
 
-app.get('/', home);
-app.get('/about', about);
-// app.route("/create").get(create.get).post(create.post);
-app.get('/create', create.get);
-app.post('/create', create.post);
+    app.engine(
+        'hbs',
+        hbs.create({
+            extname: '.hbs',
+        }).engine
+    );
+    app.set('view engine', '.hbs');
 
-app.get('/details/:id', details);
-app.route('/edit/:id').get(editCar.get).post(editCar.post);
-app.route('/delete/:id').get(deleteCar.get).post(deleteCar.post);
+    app.use(express.urlencoded({ extanded: true }));
+    app.use('/static', express.static('static'));
+    app.use(carService());
 
-app.all('*', notFound);
+    app.get('/', home);
+    app.get('/about', about);
+    app.get('/details/:id', details);
 
-app.listen(3000, () => console.log('server running'));
+    // app.route("/create").get(create.get).post(create.post);
+    app.get('/create', create.get);
+    app.post('/create', create.post);
+
+    app.route('/edit/:id').get(editCar.get).post(editCar.post);
+    app.route('/delete/:id').get(deleteCar.get).post(deleteCar.post);
+
+    app.all('*', notFound);
+
+    app.listen(3000, () => console.log('server running'));
+}
