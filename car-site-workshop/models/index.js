@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+require('./Car');
+
 const connectionStr = 'mongodb://localhost:27017';
 
 async function init() {
