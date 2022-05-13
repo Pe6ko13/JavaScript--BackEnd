@@ -1,5 +1,5 @@
-const { log } = require('console');
 const fs = require('fs/promises');
+const Car = require('../models/Car');
 
 const filePath = './services/data.json';
 
@@ -23,51 +23,66 @@ async function write(data) {
     }
 }
 
+function carViewModel(car) {
+    return {
+        id: car._id,
+        name: car.name,
+        description: car.description,
+        imageUrl: car.imageUrl,
+        price: car.price,
+    };
+}
+
 async function getAll(query) {
-    const data = await read();
-    let cars = Object.entries(data).map(([id, v]) =>
-        Object.assign({}, { id }, v)
-    );
-
-    if (query.search) {
-        cars = cars.filter((c) =>
-            c.name
-                .toLocaleLowerCase()
-                .includes(query.search.toLocaleLowerCase())
-        );
-    }
-
-    if (query.from) {
-        cars = cars.filter((c) => c.price >= Number(query.from));
-    }
-    if (query.to) {
-        cars = cars.filter((c) => c.price <= Number(query.to));
-    }
-
-    return cars;
+    const cars = await Car.find({}); //.lean()
+    return cars.map(carViewModel);
+    // const data = await read();
+    // let cars = Object.entries(data).map(([id, v]) =>
+    //     Object.assign({}, { id }, v)
+    // );
+    // if (query.search) {
+    //     cars = cars.filter((c) =>
+    //         c.name
+    //             .toLocaleLowerCase()
+    //             .includes(query.search.toLocaleLowerCase())
+    //     );
+    // }
+    // if (query.from) {
+    //     cars = cars.filter((c) => c.price >= Number(query.from));
+    // }
+    // if (query.to) {
+    //     cars = cars.filter((c) => c.price <= Number(query.to));
+    // }
+    // return cars;
 }
 
 async function getById(id) {
-    const data = await read();
-    const car = data[id];
+    const car = await Car.findById(id);
     if (car) {
-        return Object.assign({}, { id }, car);
+        return carViewModel(car);
     } else {
         return undefined;
     }
+    // const data = await read();
+    // const car = data[id];
+    // if (car) {
+    //     return Object.assign({}, { id }, car);
+    // } else {
+    //     return undefined;
+    // }
 }
 
 async function createCar(car) {
-    const cars = await read();
-    let id;
+    const result = new Car(car);
+    await result.save();
 
-    do {
-        id = nextId();
-    } while (cars.hasOwnProperty(id));
-
-    cars[id] = car;
-
-    await write(cars);
+    // const cars = await read();
+    // let id;
+    // do {
+    //     id = nextId();
+    // } while (cars.hasOwnProperty(id));
+    // cars[id] = car;
+    // await write(cars);
 }
 
 async function editById(id, car) {

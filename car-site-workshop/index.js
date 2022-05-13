@@ -1,7 +1,7 @@
 const express = require('express');
 const hbs = require('express-handlebars');
 
-const initDb = require('./models');
+const initDb = require('./models/index');
 
 const carService = require('./services/cars');
 
