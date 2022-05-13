@@ -104,7 +104,16 @@ async function createCar(car) {
 }
 
 async function editById(id, car) {
-    await Car.findByIdAndUpdate(id, car);
+    // await Car.findByIdAndUpdate(id, car);  -- not good for validation
+
+    const existing = await Car.findById(id);
+
+    existing.name = car.name;
+    existing.description = car.description;
+    existing.imageUrl = car.imageUrl;
+    existing.price = car.price;
+
+    await existing.save();
 
     // const data = await read();
     // if (data.hasOwnProperty(id)) {

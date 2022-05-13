@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 require('./Car');
+require('./Accessory');
 
 const connectionStr = 'mongodb://localhost:27017/car-site-work';
 

@@ -8,7 +8,7 @@ const carService = require('./services/cars');
 const { about } = require('./controllers/about');
 const create = require('./controllers/create');
 const editCar = require('./controllers/edit');
-
+const accessory = require('./controllers/accessory');
 const deleteCar = require('./controllers/delete');
 const { details } = require('./controllers/details');
 const { home } = require('./controllers/home');
@@ -45,6 +45,7 @@ async function start() {
 
     app.route('/edit/:id').get(editCar.get).post(editCar.post);
     app.route('/delete/:id').get(deleteCar.get).post(deleteCar.post);
+    app.route('/accessory').get(accessory.get).post(accessory.post);
 
     app.all('*', notFound);
 
