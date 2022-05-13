@@ -12,33 +12,12 @@
 </div>
 {{!-- {{/with}} --}}
 
-{{#if accessory}}
-    <h2>Accessories</h2>
-    <div class='accessories'>
-        <div class='accessory'>
-            <img
-                src='https://images-na.ssl-images-amazon.com/images/I/61J8UP8pySL._SX425_.jpg'
-                alt='stickerName'
-            />
-            <h3>Accessory Name</h3>
-            <p>Accessory Description</p>
-        </div>
-        <div class='accessory'>
-            <img
-                src='https://images-na.ssl-images-amazon.com/images/I/61J8UP8pySL._SX425_.jpg'
-                alt='stickerName'
-            />
-            <h3>Accessory Name</h3>
-            <p>Accessory Description</p>
-        </div>
-        <div class='accessory'>
-            <img
-                src='https://images-na.ssl-images-amazon.com/images/I/61J8UP8pySL._SX425_.jpg'
-                alt='stickerName'
-            />
-            <h3>Accessory Name</h3>
-            <p>Accessory Description</p>
-        </div>
-        <h3 class='italic'>This cube has no accessories yet...</h3>
-    </div>
-{{/if}}
+
+<h2>Accessories</h2>
+<div class='accessories'>
+    {{#each car.accessories}}
+        {{> accessory}}
+    {{else}}
+        <h3 class='italic'>This car has no accessories yet...</h3>
+    {{/each}}
+</div>

@@ -8,10 +8,15 @@ module.exports = {
                 req.accessory.getAll(),
             ]);
 
+            const existingIds = car.accessories.map((a) => a.id.toString());
+            const availableAccessories = accessories.filter(
+                (a) => existingIds.includes(a.id.toString()) == false
+            );
+
             res.render('attachAccessory', {
                 title: 'Attach Accessory',
                 car,
-                accessories,
+                accessories: availableAccessories,
             });
         } catch (err) {
             res.redirect('/404');
@@ -23,7 +28,7 @@ module.exports = {
         const accessoryId = req.body.accessory;
         try {
             await req.storage.attachAccessory(carId, accessoryId);
-            res.redirect('/');
+            res.redirect('/details/' + carId);
         } catch (err) {
             console.log('Error creating accessory');
             console.log(err.message);

@@ -1,5 +1,6 @@
 const fs = require('fs/promises');
 const Car = require('../models/Car');
+const { carViewModel } = require('./util');
 
 const filePath = './services/data.json';
 
@@ -21,17 +22,6 @@ async function write(data) {
         console.log(err);
         process.exit(1);
     }
-}
-
-function carViewModel(car) {
-    return {
-        id: car._id,
-        name: car.name,
-        description: car.description,
-        imageUrl: car.imageUrl,
-        price: car.price,
-        accessories: car.accessories,
-    };
 }
 
 async function getAll(query) {
@@ -76,7 +66,7 @@ async function getAll(query) {
 }
 
 async function getById(id) {
-    const car = await Car.findById(id);
+    const car = await Car.findById(id).populate('accessories');
     if (car) {
         return carViewModel(car);
     } else {
