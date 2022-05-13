@@ -126,7 +126,11 @@ async function editById(id, car) {
     // }
 }
 
-async;
+async function attachAccessory(carId, accessoryId) {
+    const existing = await Car.findById(carId);
+    existing.accessories.push(accessoryId);
+    await existing.save();
+}
 
 async function deleteById(id) {
     await Car.findByIdAndDelete(id);
@@ -153,6 +157,7 @@ module.exports = () => (req, res, next) => {
         createCar,
         editById,
         deleteById,
+        attachAccessory,
     };
     next();
 };

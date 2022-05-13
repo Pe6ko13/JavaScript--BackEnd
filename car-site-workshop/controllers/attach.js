@@ -17,5 +17,17 @@ module.exports = {
             res.redirect('/404');
         }
     },
-    async post(req, res) {},
+
+    async post(req, res) {
+        const carId = req.params.id;
+        const accessoryId = req.body.accessory;
+        try {
+            await req.storage.attachAccessory(carId, accessoryId);
+            res.redirect('/');
+        } catch (err) {
+            console.log('Error creating accessory');
+            console.log(err.message);
+            res.redirect('/attach/' + carId);
+        }
+    },
 };
