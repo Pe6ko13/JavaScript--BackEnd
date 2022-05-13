@@ -147,6 +147,10 @@ span {
     padding: 10px;
 }
 
+.btn.center {
+    display: table-cell;
+}
+
 div.about {
     display: block;
     margin: auto;

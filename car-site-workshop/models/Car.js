@@ -1,4 +1,8 @@
-const { Schema, model } = require('mongoose');
+const {
+    Schema,
+    model,
+    Types: { ObjectId },
+} = require('mongoose');
 
 const carSchema = new Schema({
     name: { type: String, required: true },
@@ -9,6 +13,7 @@ const carSchema = new Schema({
             'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png',
     },
     price: { type: Number, required: true, min: 0 },
+    accessories: { type: [ObjectId], default: [], ref: 'Accessory' },
 });
 
 const Car = model('Car', carSchema);

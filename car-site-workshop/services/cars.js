@@ -30,6 +30,7 @@ function carViewModel(car) {
         description: car.description,
         imageUrl: car.imageUrl,
         price: car.price,
+        accessories: car.accessories,
     };
 }
 
@@ -112,6 +113,7 @@ async function editById(id, car) {
     existing.description = car.description;
     existing.imageUrl = car.imageUrl || undefined;
     existing.price = car.price;
+    existing.accessories = car.accessories;
 
     await existing.save();
 
@@ -123,6 +125,8 @@ async function editById(id, car) {
     //     throw new Error('No such car');
     // }
 }
+
+async;
 
 async function deleteById(id) {
     await Car.findByIdAndDelete(id);

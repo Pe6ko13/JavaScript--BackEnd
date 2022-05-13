@@ -10,6 +10,7 @@ const { about } = require('./controllers/about');
 const create = require('./controllers/create');
 const editCar = require('./controllers/edit');
 const accessory = require('./controllers/accessory');
+const attach = require('./controllers/attach');
 const deleteCar = require('./controllers/delete');
 const { details } = require('./controllers/details');
 const { home } = require('./controllers/home');
@@ -48,6 +49,7 @@ async function start() {
     app.route('/edit/:id').get(editCar.get).post(editCar.post);
     app.route('/delete/:id').get(deleteCar.get).post(deleteCar.post);
     app.route('/accessory').get(accessory.get).post(accessory.post);
+    app.route('/attach/:id').get(attach.get).post(attach.post);
 
     app.all('*', notFound);
 
