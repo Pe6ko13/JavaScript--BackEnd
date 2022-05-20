@@ -24,6 +24,7 @@ const {
     loginPost,
     logout,
 } = require('./controllers/auth');
+const { isLoggedIn } = require('./services/util');
 
 start();
 
@@ -50,6 +51,7 @@ async function start() {
             cookie: { secure: 'auto' },
         })
     );
+
     app.use(express.urlencoded({ extanded: true }));
     app.use('/static', express.static('static'));
     app.use(carService());
@@ -61,16 +63,24 @@ async function start() {
     app.get('/details/:id', details);
 
     // app.route("/create").get(create.get).post(create.post);
-    app.get('/create', create.get);
-    app.post('/create', create.post);
+    app.get('/create', isLoggedIn(), create.get);
+    app.post('/create', isLoggedIn(), create.post);
 
-    app.route('/edit/:id').get(editCar.get).post(editCar.post);
-    app.route('/delete/:id').get(deleteCar.get).post(deleteCar.post);
-    app.route('/accessory').get(accessory.get).post(accessory.post);
-    app.route('/attach/:id').get(attach.get).post(attach.post);
+    app.route('/edit/:id')
+        .get(isLoggedIn(), editCar.get)
+        .post(isLoggedIn(), editCar.post);
+    app.route('/delete/:id')
+        .get(isLoggedIn(), deleteCar.get)
+        .post(isLoggedIn(), deleteCar.post);
+    app.route('/accessory')
+        .get(isLoggedIn(), accessory.get)
+        .post(isLoggedIn(), accessory.post);
+    app.route('/attach/:id')
+        .get(isLoggedIn(), attach.get)
+        .post(isLoggedIn(), attach.post);
     app.route('/register').get(registerGet).post(registerPost);
     app.route('/login').get(loginGet).post(loginPost);
-    app.get('/logout', logout);
+    app.get('/logout', isLoggedIn(), logout);
 
     app.all('*', notFound);
 
