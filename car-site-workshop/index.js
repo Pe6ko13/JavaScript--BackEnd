@@ -22,7 +22,7 @@ const {
     registerPost,
     loginGet,
     loginPost,
-    logoutGet,
+    logout,
 } = require('./controllers/auth');
 
 start();
@@ -70,7 +70,7 @@ async function start() {
     app.route('/attach/:id').get(attach.get).post(attach.post);
     app.route('/register').get(registerGet).post(registerPost);
     app.route('/login').get(loginGet).post(loginPost);
-    app.get('/logout', logoutGet);
+    app.get('/logout', logout);
 
     app.all('*', notFound);
 
