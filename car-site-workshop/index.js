@@ -1,10 +1,12 @@
 const express = require('express');
 const hbs = require('express-handlebars');
+const session = require('express-session');
 
 const initDb = require('./models/index');
 
 const carService = require('./services/cars');
 const accessoryService = require('./services/accessories');
+const authService = require('./services/auth');
 
 const { about } = require('./controllers/about');
 const create = require('./controllers/create');
@@ -40,10 +42,19 @@ async function start() {
     );
     app.set('view engine', '.hbs');
 
+    app.use(
+        session({
+            secret: 'my super secret',
+            resave: false,
+            saveUninitialized: true,
+            cookie: { secure: 'auto' },
+        })
+    );
     app.use(express.urlencoded({ extanded: true }));
     app.use('/static', express.static('static'));
     app.use(carService());
     app.use(accessoryService());
+    app.use(authService());
 
     app.get('/', home);
     app.get('/about', about);
