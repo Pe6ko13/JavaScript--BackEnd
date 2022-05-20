@@ -3,6 +3,10 @@ module.exports = {
         const id = req.params.id;
         const car = await req.storage.getById(id);
 
+        if (car.owner != req.session.user.id) {
+            return res.redirect('/login');
+        }
+
         if (car) {
             res.render('delete', {
                 title: `Delete listing - ${car.name}`,
@@ -17,8 +21,11 @@ module.exports = {
         const id = req.params.id;
 
         try {
-            await req.storage.deleteById(id);
-            res.redirect('/');
+            if (await req.storage.deleteById(id, req.session.user.id)) {
+                res.redirect('/');
+            } else {
+                res.redirect('/login');
+            }
         } catch (err) {
             res.redirect('/404');
         }

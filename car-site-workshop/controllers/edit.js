@@ -1,29 +1,36 @@
 module.exports = {
-  async get(req, res) {
-    const id = req.params.id;
-    const car = await req.storage.getById(id);
+    async get(req, res) {
+        const id = req.params.id;
+        const car = await req.storage.getById(id);
 
-    if (car) {
-      res.render('edit', { title: `Edit listing - ${car.name}`, car });
-    } else {
-      res.redirect('/404');
-    }
-  },
+        if (car.owner != req.session.user.id) {
+            return res.redirect('/login');
+        }
 
-  async post(req, res) {
-    const id = req.params.id;
-    const car = {
-      name: req.body.name,
-      description: req.body.description,
-      imageUrl: req.body.imageUrl,
-      price: Number(req.body.price),
-    };
+        if (car) {
+            res.render('edit', { title: `Edit listing - ${car.name}`, car });
+        } else {
+            res.redirect('/404');
+        }
+    },
 
-    try {
-      await req.storage.editById(id, car);
-      res.redirect('/');
-    } catch (err) {
-      res.redirect('/404');
-    }
-  },
+    async post(req, res) {
+        const id = req.params.id;
+        const car = {
+            name: req.body.name,
+            description: req.body.description,
+            imageUrl: req.body.imageUrl,
+            price: Number(req.body.price),
+        };
+
+        try {
+            if (await req.storage.editById(id, car, req.session.user.id)) {
+                res.redirect('/');
+            } else {
+                res.redirect('/login');
+            }
+        } catch (err) {
+            res.redirect('/404');
+        }
+    },
 };

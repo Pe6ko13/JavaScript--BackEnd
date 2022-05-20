@@ -99,10 +99,14 @@ async function createCar(car) {
     // await write(cars);
 }
 
-async function editById(id, car) {
+async function editById(id, car, ownerId) {
     // await Car.findByIdAndUpdate(id, car);  -- not good for validation
 
     const existing = await Car.findById(id).where({ isDeleted: false });
+
+    if (existing.owner != ownerId) {
+        return false;
+    }
 
     existing.name = car.name;
     existing.description = car.description;
@@ -111,6 +115,8 @@ async function editById(id, car) {
     existing.accessories = car.accessories;
 
     await existing.save();
+
+    return true;
 
     // const data = await read();
     // if (data.hasOwnProperty(id)) {
@@ -121,16 +127,28 @@ async function editById(id, car) {
     // }
 }
 
-async function attachAccessory(carId, accessoryId) {
+async function attachAccessory(carId, accessoryId, ownerId) {
     const existing = await Car.findById(carId);
+
+    if (existing.owner != ownerId) {
+        return false;
+    }
+
     existing.accessories.push(accessoryId);
     await existing.save();
 }
 
-async function deleteById(id) {
+async function deleteById(id, ownerId) {
     // await Car.findByIdAndDelete(id);
+    const existing = await Car.findById(id).where({ isDeleted: false });
+
+    if (existing.owner != ownerId) {
+        return false;
+    }
+
     await Car.findByIdAndUpdate(id, { isDeleted: true });
 
+    return true;
     // const data = await read();
     // if (data.hasOwnProperty(id)) {
     //     delete data[id];
