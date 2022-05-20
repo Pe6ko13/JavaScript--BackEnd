@@ -1,31 +1,34 @@
-const fs = require('fs/promises');
 const Car = require('../models/Car');
 const { carViewModel } = require('./util');
 
-const filePath = './services/data.json';
+// const fs = require('fs/promises');
 
-async function read() {
-    try {
-        const file = await fs.readFile(filePath);
-        return JSON.parse(file);
-    } catch (err) {
-        console.error('Database read error');
-        process.exit(1);
-    }
-}
+// const filePath = './services/data.json';
 
-async function write(data) {
-    try {
-        await fs.writeFile(filePath, JSON.stringify(data, null, 2));
-    } catch (err) {
-        console.error('Database write error');
-        console.log(err);
-        process.exit(1);
-    }
-}
+// async function read() {
+//     try {
+//         const file = await fs.readFile(filePath);
+//         return JSON.parse(file);
+//     } catch (err) {
+//         console.error('Database read error');
+//         process.exit(1);
+//     }
+// }
+
+// async function write(data) {
+//     try {
+//         await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+//     } catch (err) {
+//         console.error('Database write error');
+//         console.log(err);
+//         process.exit(1);
+//     }
+// }
 
 async function getAll(query) {
-    const options = {};
+    const options = {
+        isDeleted: false,
+    };
 
     if (query.search) {
         options.name = new RegExp(query.search, 'i');
@@ -66,7 +69,9 @@ async function getAll(query) {
 }
 
 async function getById(id) {
-    const car = await Car.findById(id).populate('accessories');
+    const car = await Car.findById(id)
+        .where({ isDeleted: false })
+        .populate('accessories');
     if (car) {
         return carViewModel(car);
     } else {
@@ -97,7 +102,7 @@ async function createCar(car) {
 async function editById(id, car) {
     // await Car.findByIdAndUpdate(id, car);  -- not good for validation
 
-    const existing = await Car.findById(id);
+    const existing = await Car.findById(id).where({ isDeleted: false });
 
     existing.name = car.name;
     existing.description = car.description;
@@ -123,7 +128,8 @@ async function attachAccessory(carId, accessoryId) {
 }
 
 async function deleteById(id) {
-    await Car.findByIdAndDelete(id);
+    // await Car.findByIdAndDelete(id);
+    await Car.findByIdAndUpdate(id, { isDeleted: true });
 
     // const data = await read();
     // if (data.hasOwnProperty(id)) {

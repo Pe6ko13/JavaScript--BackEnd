@@ -15,6 +15,13 @@ const deleteCar = require('./controllers/delete');
 const { details } = require('./controllers/details');
 const { home } = require('./controllers/home');
 const { notFound } = require('./controllers/notFound');
+const {
+    registerGet,
+    registerPost,
+    loginGet,
+    loginPost,
+    logoutGet,
+} = require('./controllers/auth');
 
 start();
 
@@ -50,6 +57,9 @@ async function start() {
     app.route('/delete/:id').get(deleteCar.get).post(deleteCar.post);
     app.route('/accessory').get(accessory.get).post(accessory.post);
     app.route('/attach/:id').get(attach.get).post(attach.post);
+    app.route('/register').get(registerGet).post(registerPost);
+    app.route('/login').get(loginGet).post(loginPost);
+    app.get('/logout', logoutGet);
 
     app.all('*', notFound);
 

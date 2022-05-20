@@ -14,6 +14,7 @@ const carSchema = new Schema({
     },
     price: { type: Number, required: true, min: 0 },
     accessories: { type: [ObjectId], default: [], ref: 'Accessory' },
+    idsDeleted: { type: Boolean, default: false },
 });
 
 const Car = model('Car', carSchema);
