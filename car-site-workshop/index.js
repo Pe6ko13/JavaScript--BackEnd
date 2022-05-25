@@ -26,6 +26,8 @@ const {
 } = require('./controllers/auth');
 const { isLoggedIn } = require('./services/util');
 
+const { body } = require('express-validator');
+
 start();
 
 async function start() {
@@ -69,16 +71,41 @@ async function start() {
     app.route('/edit/:id')
         .get(isLoggedIn(), editCar.get)
         .post(isLoggedIn(), editCar.post);
+
     app.route('/delete/:id')
         .get(isLoggedIn(), deleteCar.get)
         .post(isLoggedIn(), deleteCar.post);
+
     app.route('/accessory')
         .get(isLoggedIn(), accessory.get)
         .post(isLoggedIn(), accessory.post);
+
     app.route('/attach/:id')
         .get(isLoggedIn(), attach.get)
         .post(isLoggedIn(), attach.post);
-    app.route('/register').get(registerGet).post(registerPost);
+
+    app.route('/register')
+        .get(registerGet)
+        .post(
+            body('username').trim(),
+            body('password').trim(),
+            body('repeatPassword').trim(),
+            body('username')
+                .isLength({ min: 5 })
+                .withMessage('Username must be at least 5 letters')
+                .bail()
+                .isAlphanumeric()
+                .withMessage('Username must contain only letters and numbers'),
+            body('password')
+                .notEmpty()
+                .withMessage('Password is required')
+                .isLength({ min: 8 })
+                .withMessage('Password must be at least 8 letters'),
+            body('repeatPassword')
+                .custom((value, { req }) => value == req.body.password)
+                .withMessage("Passwords dont't match"),
+            registerPost
+        ); //username validation
     app.route('/login').get(loginGet).post(loginPost);
     app.get('/logout', isLoggedIn(), logout);
 

@@ -5,7 +5,11 @@ const {
 } = require('mongoose');
 
 const carSchema = new Schema({
-    name: { type: String, required: true },
+    name: {
+        type: String,
+        required: [true, 'Listing name is required'],
+        minlength: [3, 'Listing name must be more than 3 letters'],
+    },
     description: { type: String, default: '' },
     imageUrl: {
         type: String,

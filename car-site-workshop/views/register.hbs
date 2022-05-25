@@ -1,14 +1,26 @@
 <h1>Register Form</h1>
-<div class="form">
-    <form action="/register" method="POST">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" />
+<div class='form'>
+    <form action='/register' method='POST'>
+        {{#if err}}
+            <div>
+                {{#each err}}
+                    <p>{{msg}}</p>
+                {{/each}}
+            </div>
+        {{/if}}
+        <label for='username'>Username</label>
+        <input
+            type='text'
+            id='username'
+            name='username'
+            value='{{data.username}}'
+        />
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" />
+        <label for='password'>Password</label>
+        <input type='password' id='password' name='password' />
 
-        <label for="repeatPassword">Re-Password</label>
-        <input type="password" id="repeatPassword" name="repeatPassword" />
-        <input type="submit" value="Register" />
+        <label for='repeatPassword'>Re-Password</label>
+        <input type='password' id='repeatPassword' name='repeatPassword' />
+        <input type='submit' value='Register' />
     </form>
 </div>
