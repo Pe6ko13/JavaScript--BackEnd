@@ -47,6 +47,24 @@ function isLoggedIn() {
     };
 }
 
+function mapError(error) {
+    if (Array.isArray(error)) {
+        return error;
+    } else if (error.name == 'MongoServerError') {
+        if (error.code == 11000) {
+            return [{ msg: 'Username already exists' }];
+        } else {
+            return [{ msg: 'Server error' }];
+        }
+    } else if (error.name == 'MongoServerError') {
+        return [{ msg: 'Mongoose error' }];
+    } else if (typeof error.message == 'string') {
+        return [{ msg: error.message }];
+    } else {
+        return [{ msg: 'Server error' }];
+    }
+}
+
 module.exports = {
     accessoryViewModel,
     carViewModel,

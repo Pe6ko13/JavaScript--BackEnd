@@ -23,7 +23,7 @@ async function login(session, username, password) {
 
         return true;
     } else {
-        throw new Error('Incorect user');
+        throw new Error('Incorect user or password');
     }
 }
 

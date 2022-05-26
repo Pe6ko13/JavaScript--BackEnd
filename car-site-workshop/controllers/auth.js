@@ -66,7 +66,8 @@ router.post('/login', async (req, res) => {
         res.redirect('/');
     } catch (err) {
         console.log(err);
-        res.redirect('/login');
+        res.locals.err = [{ msg: err.message }];
+        res.render('login', { title: 'Login' });
     }
 });
 

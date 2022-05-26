@@ -20,8 +20,6 @@ const { notFound } = require('./controllers/notFound');
 const authControler = require('./controllers/auth');
 const { isLoggedIn } = require('./services/util');
 
-const { body } = require('express-validator');
-
 start();
 
 async function start() {
