@@ -27,7 +27,7 @@ const { carViewModel } = require('./util');
 
 async function getAll(query) {
     const options = {
-        isDeleted: false,
+        idsDeleted: false,
     };
 
     if (query.search) {
@@ -70,7 +70,7 @@ async function getAll(query) {
 
 async function getById(id) {
     const car = await Car.findById(id)
-        .where({ isDeleted: false })
+        .where({ idsDeleted: false })
         .populate('accessories');
     if (car) {
         return carViewModel(car);
@@ -102,7 +102,7 @@ async function createCar(car) {
 async function editById(id, car, ownerId) {
     // await Car.findByIdAndUpdate(id, car);  -- not good for validation
 
-    const existing = await Car.findById(id).where({ isDeleted: false });
+    const existing = await Car.findById(id).where({ idsDeleted: false });
 
     if (existing.owner != ownerId) {
         return false;
@@ -140,13 +140,13 @@ async function attachAccessory(carId, accessoryId, ownerId) {
 
 async function deleteById(id, ownerId) {
     // await Car.findByIdAndDelete(id);
-    const existing = await Car.findById(id).where({ isDeleted: false });
+    const existing = await Car.findById(id).where({ idsDeleted: false });
 
     if (existing.owner != ownerId) {
         return false;
     }
 
-    await Car.findByIdAndUpdate(id, { isDeleted: true });
+    await Car.findByIdAndUpdate(id, { idsDeleted: true });
 
     return true;
     // const data = await read();

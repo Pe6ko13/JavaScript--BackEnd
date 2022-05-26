@@ -5,7 +5,6 @@ module.exports = {
             cars,
             title: 'Cars',
             query: req.query,
-            err: [{ msg: 'TEsT ErRoRrrrrr' }],
         });
     },
 };

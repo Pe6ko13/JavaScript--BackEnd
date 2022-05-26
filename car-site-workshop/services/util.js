@@ -56,8 +56,8 @@ function mapError(error) {
         } else {
             return [{ msg: 'Server error' }];
         }
-    } else if (error.name == 'MongoServerError') {
-        return [{ msg: 'Mongoose error' }];
+    } else if (error.name == 'ValidationError') {
+        return Object.values(error.errors).map((e) => ({ msg: e.message }));
     } else if (typeof error.message == 'string') {
         return [{ msg: error.message }];
     } else {
@@ -71,4 +71,5 @@ module.exports = {
     hashPassword,
     comparePassword,
     isLoggedIn,
+    mapError,
 };

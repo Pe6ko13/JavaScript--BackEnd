@@ -15,6 +15,7 @@ const carSchema = new Schema({
         type: String,
         default:
             'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png',
+        match: [/^https?:\/\//, 'Image URL must be a valid URL'],
     },
     price: { type: Number, required: true, min: 0 },
     accessories: { type: [ObjectId], default: [], ref: 'Accessory' },

@@ -1,5 +1,6 @@
 const { body, validationResult } = require('express-validator');
 const { Router } = require('express');
+const { mapError } = require('../services/util');
 
 const router = Router();
 
@@ -21,8 +22,8 @@ router.post(
     body('password')
         .notEmpty()
         .withMessage('Password is required')
-        .isLength({ min: 8 })
-        .withMessage('Password must be at least 8 chars')
+        .isLength({ min: 3 })
+        .withMessage('Password must be at least 3 chars')
         .isAlphanumeric()
         .withMessage('Username must contain only letters and numbers'),
     body('repeatPassword')
@@ -47,9 +48,9 @@ router.post(
             await req.auth.register(req.body.username, req.body.password);
             res.redirect('/');
         } catch (err) {
+            res.locals.err = mapError(err);
             res.render('register', {
                 title: 'Register',
-                err,
                 data: { username: req.body.username },
             });
         }
