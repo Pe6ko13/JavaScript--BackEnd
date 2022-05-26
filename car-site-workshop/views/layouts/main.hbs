@@ -28,6 +28,13 @@
                     {{/if}}
                 </ul>
             </header>
+            {{#if err}}
+                <div id='notifications'>
+                    {{#each err}}
+                        <p>{{msg}}</p>
+                    {{/each}}
+                </div>
+            {{/if}}
             <main>
                 {{{body}}}
             </main>
