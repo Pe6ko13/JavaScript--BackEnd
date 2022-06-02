@@ -1,0 +1,29 @@
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8' />
+        <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <link rel='stylesheet' href='../../static/css/style.css' />
+        <title>WildLife</title>
+    </head>
+    <body>
+        <div class='container'>
+            <header>
+                <img class='logo' src='../static/images/logo.png' alt='logo' />
+                <ul>
+
+                    <li><a href=''>Home</a></li>
+                    <li><a href=''>All posts</a></li>
+                    {{! logged user }}
+                    <li><a href=''>Create post</a></li>
+                    <li><a href=''>Posts of </a></li>
+                    <li><a href=''>Logout</a></li>
+                </ul>
+            </header>
+            <main>
+                {{{body}}}
+            </main>
+        </div>
+        <footer>&copy; WildLife: Workshop JS</footer>
+    </body>
+</html>

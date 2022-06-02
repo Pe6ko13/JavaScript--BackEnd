@@ -2,7 +2,7 @@ const { model, Schema } = require('mongoose');
 
 const userSchema = new Schema({
     username: { type: String, required: true },
-    hashedPassword: { type: String, required: true },
+    hashedPass: { type: String, required: true },
 });
 
 userSchema.index(
