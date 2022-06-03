@@ -3,7 +3,7 @@ function isUser() {
         if (req.session.user) {
             next();
         } else {
-            res.return('/login');
+            res.redirect('/login');
         }
     };
 }
@@ -11,7 +11,7 @@ function isUser() {
 function isGuest() {
     return function (req, res, next) {
         if (req.session.user) {
-            res.return('/');
+            res.redirect('/');
         } else {
             next();
         }

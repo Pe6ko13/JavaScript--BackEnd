@@ -1,0 +1,36 @@
+<h1>Create your post</h1>
+<div class='form'>
+
+    <form action='/create' method='POST'>
+        <label for='title'>Title: </label>
+        <input type='text' id='title' name='title' value='{{data.title}}' />
+
+        <label for='key-word'>Keyword: </label>
+        <input
+            type='text'
+            id='keyword'
+            name='keyword'
+            value='{{data.keyword}}'
+        />
+
+        <label for='location'>Location: </label>
+        <input
+            type='text'
+            id='location'
+            name='location'
+            value='{{data.location}}'
+        />
+
+        <label for='date'>Date of creation: </label>
+        <input type='text' id='date' name='date' value='{{data.date}}' />
+
+        <label for='image'>Wildlife image:</label>
+        <input type='text' id='image' name='image' value='{{data.image}}' />
+
+        <label for='name'>Description:</label>
+        <textarea id='name' name='description'>{{data.description}}</textarea>
+
+        <input type='submit' value='Create' />
+    </form>
+
+</div>

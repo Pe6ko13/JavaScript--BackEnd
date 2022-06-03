@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 require('../models/User');
+require('../models/Post');
 
 const databaseName = 'wildlife';
 
