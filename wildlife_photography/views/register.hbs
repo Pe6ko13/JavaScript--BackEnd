@@ -1,12 +1,22 @@
-<h1>Register Form</h1>
+<h1>Register to share knowlege about the wildlife</h1>
 <div class='form'>
     <form action='/register' method='POST'>
         <label for='first-name'>First name</label>
-        <input type='text' id='username' name='firstName' value='' />
+        <input
+            type='text'
+            id='first-name'
+            name='firstName'
+            value='{{data.firstName}}'
+        />
         <label for='last-name'>Last name</label>
-        <input type='text' id='username' name='lastName' value='' />
+        <input
+            type='text'
+            id='last-name'
+            name='lastName'
+            value='{{data.lastName}}'
+        />
         <label for='email'>Email</label>
-        <input type='text' id='username' name='email' value='' />
+        <input type='text' id='email' name='email' value='{{data.email}}' />
 
         <label for='password'>Password</label>
         <input type='password' id='password' name='password' />

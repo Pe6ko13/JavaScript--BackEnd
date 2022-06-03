@@ -4,22 +4,32 @@
         <meta http-equiv='X-UA-Compatible' content='IE=edge' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
         <link rel='stylesheet' href='../../static/css/style.css' />
-        <title>WildLife</title>
+        <title>W</title>
     </head>
     <body>
         <div class='container'>
             <header>
                 <img class='logo' src='../static/images/logo.png' alt='logo' />
                 <ul>
-
-                    <li><a href=''>Home</a></li>
-                    <li><a href=''>All posts</a></li>
-                    {{! logged user }}
-                    <li><a href=''>Create post</a></li>
-                    <li><a href=''>Posts of </a></li>
-                    <li><a href=''>Logout</a></li>
+                    <li><a href='/'>Home</a></li>
+                    <li><a href='/catalog'>All posts</a></li>
+                    {{#if hasUser}}
+                        <li><a href='/create'>Create post</a></li>
+                        <li><a href='/profile'>Posts of {{user.email}}</a></li>
+                        <li><a href='/logout'>Logout</a></li>
+                    {{else}}
+                        <li><a href='/login'>Login</a></li>
+                        <li><a href='/register'>Register</a></li>
+                    {{/if}}
                 </ul>
             </header>
+            {{#if errors}}
+                <div id='notifications'>
+                    {{#each errors}}
+                        <p>{{msg}}</p>
+                    {{/each}}
+                </div>
+            {{/if}}
             <main>
                 {{{body}}}
             </main>

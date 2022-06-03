@@ -1,6 +1,7 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
 const session = require('express-session');
+const userSession = require('../middleware/userSession');
 
 module.exports = (app) => {
     app.engine('.hbs', handlebars.create({ extname: '.hbs' }).engine);
@@ -17,4 +18,6 @@ module.exports = (app) => {
             cookie: { secure: 'auto' },
         })
     );
+
+    app.use(userSession());
 };
