@@ -1,0 +1,21 @@
+<h1>Edit your post</h1>
+<div class='form'>
+    {{#with post}}
+        <form action='/edit/{{_id}}' method='POST'>
+            <label for='title'>Title</label>
+            <input type='text' id='name' name='title' value='{{title}}' />
+            <label for='keyword'>Keyword</label>
+            <input type='text' id='name' name='keyword' value='{{keyword}}' />
+            <label for='location'>Location</label>
+            <input type='text' id='name' name='location' value='{{location}}' />
+            <label for='date'>Date</label>
+            <input type='text' id='name' name='date' value='{{date}}' />
+            <label for='description'>Description</label>
+            <textarea id='name' name='description'>{{description}}</textarea>
+            <label for='image'>Image</label>
+            <input type='text' id='image' name='image' value='{{image}}' />
+
+            <input type='submit' value='Edit' />
+        </form>
+    {{/with}}
+</div>

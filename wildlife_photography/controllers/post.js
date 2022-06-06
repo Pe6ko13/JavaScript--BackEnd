@@ -1,6 +1,11 @@
 const { isUser } = require('../middleware/guards');
-const { createPost } = require('../services/post');
-const mapErrors = require('../util/mappers');
+const {
+    createPost,
+    getPostById,
+    updatePost,
+    deletePost,
+} = require('../services/post');
+const { mapErrors, postViewModel } = require('../util/mappers');
 
 const router = require('express').Router();
 
@@ -27,6 +32,61 @@ router.post('/create', isUser(), async (req, res) => {
         console.error(err);
         const errors = mapErrors(err);
         res.render('create', { title: 'Create Page', errors, data: post });
+    }
+});
+
+router.get('/edit/:id', isUser(), async (req, res) => {
+    const id = req.params.id;
+    const post = postViewModel(await getPostById(id));
+
+    if (req.session.user._id != post.author._id) {
+        return res.redirect('/login');
+    }
+
+    res.render('edit', { title: 'Edit post', post });
+});
+
+router.post('/edit/:id', isUser(), async (req, res) => {
+    const postId = req.params.id;
+    const existingPost = postViewModel(await getPostById(postId));
+
+    if (req.session.user._id != existingPost.author._id) {
+        return res.redirect('/login');
+    }
+
+    const post = {
+        title: req.body.title,
+        keyword: req.body.keyword,
+        location: req.body.location,
+        date: req.body.date,
+        description: req.body.description,
+        image: req.body.image,
+    };
+
+    try {
+        await updatePost(postId, post);
+        res.redirect('/catalog/' + postId);
+    } catch (err) {
+        post._id = postId;
+        const errors = mapErrors(err);
+        res.render('edit', { title: 'Edit post', post, errors });
+    }
+});
+
+router.get('/delete/:id', isUser(), async (req, res) => {
+    const postId = req.params.id;
+    const existingPost = postViewModel(await getPostById(postId));
+
+    if (req.session.user._id != existingPost.author._id) {
+        return res.redirect('/login');
+    }
+
+    try {
+        await deletePost(postId);
+        res.redirect('/catalog');
+    } catch (err) {
+        const errors = mapErrors(err);
+        res.render('/catalog/' + postId, { title: existingPost.title, errors });
     }
 });
 
