@@ -20,7 +20,7 @@ function postViewModel(post) {
         image: post.image,
         description: post.description,
         author: authorViewModel(post.author),
-        votes: post.votes,
+        votes: post.votes.map(voteViewModel),
         rating: post.rating,
     };
 }
