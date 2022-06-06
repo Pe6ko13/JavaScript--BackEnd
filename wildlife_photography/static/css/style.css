@@ -74,6 +74,11 @@ div.container {
     margin: 0 auto;
 }
 
+.band {
+    display: grid;
+    grid-auto-flow: column;
+}
+
 h1 {
     text-align: center;
     text-transform: uppercase;
@@ -261,9 +266,6 @@ h2 {
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
     background: #53794e;
     padding: 1em;
     text-align: center;

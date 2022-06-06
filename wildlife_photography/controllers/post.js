@@ -4,6 +4,7 @@ const {
     getPostById,
     updatePost,
     deletePost,
+    vote,
 } = require('../services/post');
 const { mapErrors, postViewModel } = require('../util/mappers');
 
@@ -86,7 +87,20 @@ router.get('/delete/:id', isUser(), async (req, res) => {
         res.redirect('/catalog');
     } catch (err) {
         const errors = mapErrors(err);
-        res.render('/catalog/' + postId, { title: existingPost.title, errors });
+        res.render('details', { title: existingPost.title, errors });
+    }
+});
+
+router.get('/vote/:id/:type', isUser(), async (req, res) => {
+    const id = req.params.id;
+    const value = req.params.type == 'upvote' ? 1 : -1;
+
+    try {
+        await vote(id, req.session.user._id, value);
+        res.redirect('/catalog/' + id);
+    } catch (err) {
+        const errors = mapErrors(err);
+        res.render('details', { title: 'Details', errors });
     }
 });
 

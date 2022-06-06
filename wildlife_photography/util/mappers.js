@@ -33,6 +33,13 @@ function authorViewModel(user) {
     };
 }
 
+function voteViewModel(user) {
+    return {
+        _id: user._id,
+        email: user.email,
+    };
+}
+
 module.exports = {
     postViewModel,
     mapErrors,
