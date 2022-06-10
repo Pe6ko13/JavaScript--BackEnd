@@ -1,0 +1,20 @@
+const { Schema, model } = require('mongoose');
+
+const schema = new Schema({
+    make: { type: String, required: true },
+    model: { type: String, required: true },
+    year: {
+        type: Number,
+        required: true,
+        min: [1950, 'Year must be between 1950 and 2050'],
+        max: [2050, 'Year must be between 1950 and 2050'],
+    },
+    description: { type: String, required: true },
+    price: { type: Number, required: true },
+    img: { type: String, required: true },
+    material: { type: String },
+});
+
+const Item = model('Item', schema);
+
+module.exports = Item;
