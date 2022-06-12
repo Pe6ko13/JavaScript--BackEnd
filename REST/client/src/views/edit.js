@@ -127,6 +127,6 @@ export async function editPage(ctx) {
         data.price = Number(data.price);
         await editRecord(item._id, data);
 
-        ctx.page.redirect('/');
+        ctx.page.redirect('/details/' + id);
     }
 }

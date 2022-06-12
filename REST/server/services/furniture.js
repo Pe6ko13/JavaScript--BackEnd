@@ -4,7 +4,7 @@ async function getAll() {
     return Item.find({});
 }
 
-async function getById(id) {
+function getById(id) {
     const item = Item.findById(id);
     return item;
 }

@@ -1,4 +1,8 @@
-const { Schema, model } = require('mongoose');
+const {
+    Schema,
+    model,
+    Types: { ObjectId },
+} = require('mongoose');
 
 const schema = new Schema({
     make: { type: String, required: true },
@@ -13,6 +17,7 @@ const schema = new Schema({
     price: { type: Number, required: true },
     img: { type: String, required: true },
     material: { type: String },
+    owner: { type: ObjectId, ref: 'User' },
 });
 
 const Item = model('Item', schema);
