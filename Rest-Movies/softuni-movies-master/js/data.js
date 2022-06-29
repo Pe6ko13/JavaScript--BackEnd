@@ -68,7 +68,7 @@ export async function logout() {
 
     const result = fetch(host(endpoints.LOGOUT), {
         headers: {
-            'user-token': token,
+            'X-Authorization': `Bearer ${token}`,
         },
     });
 
@@ -89,7 +89,7 @@ export async function getMovieCount(search) {
         result = (
             await fetch(host(endpoints.MOVIE_COUNT), {
                 headers: {
-                    'user-token': token,
+                    'X-Authorization': `Bearer ${token}`,
                 },
             })
         ).json();
@@ -102,7 +102,7 @@ export async function getMovieCount(search) {
                 ),
                 {
                     headers: {
-                        'user-token': token,
+                        'X-Authorization': `Bearer ${token}`,
                     },
                 }
             )
@@ -127,7 +127,7 @@ export async function getMovies(search, page) {
         result = (
             await fetch(host(endpoints.MOVIES + '?' + pagingQuery), {
                 headers: {
-                    'user-token': token,
+                    'X-Authorization': `Bearer ${token}`,
                 },
             })
         ).json();
@@ -142,7 +142,7 @@ export async function getMovies(search, page) {
                 ),
                 {
                     headers: {
-                        'user-token': token,
+                        'X-Authorization': `Bearer ${token}`,
                     },
                 }
             )
@@ -163,7 +163,7 @@ export async function getMovieById(id) {
     const result = (
         await fetch(host(endpoints.MOVIE_BY_ID + id), {
             headers: {
-                'user-token': token,
+                'X-Authorization': `Bearer ${token}`,
             },
         })
     ).json();
@@ -206,7 +206,7 @@ export async function updateMovie(id, updatedProps) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'user-token': token,
+                'X-Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify(updatedProps),
         })
@@ -228,7 +228,7 @@ export async function deleteMovie(id) {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'user-token': token,
+                'X-Authorization': `Bearer ${token}`,
             },
         })
     ).json();
@@ -251,7 +251,7 @@ export async function getMovieByOwner() {
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'user-token': token,
+                    'X-Authorization': `Bearer ${token}`,
                 },
             }
         )

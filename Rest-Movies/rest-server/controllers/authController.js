@@ -10,10 +10,10 @@ router.post('/register', (req, res) => {
     });
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
     const { login: username, password } = req.body;
     User.where(username, password)
-        .findOne({})
+        .findOne()
         .then((user) => {
             let token = jwt.sign(
                 {
@@ -29,6 +29,9 @@ router.post('/login', (req, res) => {
                 username: user.username,
                 token,
             });
+        })
+        .catch((err) => {
+            next({ status: 404, message: 'No such user or password' });
         });
 });
 
