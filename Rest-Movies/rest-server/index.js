@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('./middlewares/cors');
 // const cors = require('cors');      //need to install 'cors' library
 const routes = require('./routes');
+const { auth } = require('./middlewares/auth');
 
 const app = express();
 
@@ -19,6 +20,9 @@ db.once('open', function () {
 
 app.use(cors);
 app.use(express.json());
+
+app.use(auth);
+
 app.use('/api', routes);
 
 app.listen(5000, () => console.log('Server is listening on port: 5000'));

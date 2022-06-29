@@ -184,7 +184,7 @@ export async function createMovie(movie) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
+                'X-Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify(movie),
         })

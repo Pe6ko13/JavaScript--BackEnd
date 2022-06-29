@@ -1,8 +1,8 @@
 const Movie = require('../Models/Movie');
-
+const { isAuth } = require('../middlewares/auth');
 const router = require('express').Router();
 
-router.post('/', (req, res) => {
+router.post('/', isAuth, (req, res) => {
     console.log(req.body);
     let movie = new Movie(req.body);
 
