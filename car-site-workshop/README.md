@@ -1,21 +1,19 @@
-# React My pets app
+# Car-site Server app
 
-Web application for sharing photos and information about your pets.
-
-The page is usable on mobile and desktop devices.
-
-Link to My Pet web page:
+Server for Car site
 
 ---
 
 ## Used Technologies:
 
--   [x] React Web
+-   [x] JavaScript 
 
--   [x] HTML
+-   [x] Node.js
 
--   [x] CSS
+-   [x] Express
 
--   [x] Firebase Authentication
+-   [x] MongoDB
 
--   [x] JSON-Server
+-   [x] Mongoose
+
+-   [x] Handlebars
